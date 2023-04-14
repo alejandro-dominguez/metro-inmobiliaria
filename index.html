@@ -17,11 +17,17 @@
 	<script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 	<script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 	<script defer src="./js/firebaseConfig.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+	integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script defer src="./js/app.js"></script>
 	<link rel="stylesheet" href="./styles/style.css">
 	<link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<div class="d-flex vw-100 vh-100 position-fixed z-3 bg-light" id="spinnerContainer">
+		<div class="spinner-border text-info mx-auto my-auto fs-1" role="status"></div>
+	</div>
 	<header>
 		<nav class="navbar fixed-top navbar-expand-lg py-3 px-5 navbar-dark shadow-sm">	
 			<div class="container-fluid">
@@ -37,27 +43,21 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-auto gap-3 text-uppercase navUl">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Inicio</a>
+							<a class="nav-link" href="#aboutUsSection">Nosotros</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Nosotros</a>
+							<a class="nav-link" href="#servicesSection">Servicios</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Servicios</a>
+							<a class="nav-link" href="#pricingSection">Cotizaciones</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Cotizaciones</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Contacto</a>
+							<a class="nav-link" href="#contactSection">Contacto</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-			
-		<!-- loader / error -->
-
 		<section id="carouselSection">
 			<template id="carouselTemplate">
 				<div class="container-fluid p-0 carouselContainer">
@@ -149,10 +149,98 @@
 			</div>
 		</template>
 	</section>
-	<section id="pricing">
-	<div class="container-fluid px-5 pb-5 shadow">
-		<h2 class="text-uppercase text-center mt-4">Tasador de metros cuadrados</h2>
-	</div>
+	<section id="pricingSection">
+		<div class="container-fluid px-5 pb-5 shadow">
+			<h2 class="text-uppercase text-center mt-4">Tasador de propiedades</h2>
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-5">
+					<form class="needs-validation mt-3 pricingForm" id="firstForm">
+						<div class="form-group mb-3">
+							<label for="ubication" class="fs-5"><b>Ubicación:</b></label>
+							<select class="form-control mt-1" id="ubication" required></select>
+						</div>
+						<div class="form-group mb-3">
+							<label for="meters" class="fs-5"><b>Metros cuadrados:</b></label>
+							<input type="number" class="form-control mt-1" id="meters" min="1" max="100" required>
+						</div>
+						<div class="form-group mb-3">
+							<label for="rooms" class="fs-5"><b>Cantidad de habitaciones:</b></label>
+							<input type="number" class="form-control mt-1" id="rooms" min="1" max="10" required>
+						</div>
+						<div class="form-group mb-3">
+							<label for="propertyType" class="fs-5"><b>Tipo de propiedad:</b></label>
+							<select class="form-control mt-2" id="propertyType" required>
+								<option value="Departamento">Departamento</option>
+								<option value="Casa">Casa</option>
+							</select>
+						</div>
+						<button type="submit" id="btnPricing" class="btn btn-success text-uppercase fw-bolder py-2 px-3 mt-1 shadow-sm">
+							Siguiente
+						</button>
+					</form>
+					<form class="needs-validation mt-3 d-none pricingForm" id="secondForm">
+						<div class="form-group mb-3">
+							<label for="totalPricing" class="fs-5"><b>Tasación estimada:</b></label>
+							<input type="text" class="form-control mt-1" id="totalPricing" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="fullName" class="fs-5"><b>Nombre completo</b></label>
+							<input type="text" class="form-control mt-1" id="fullName" required>
+						</div>
+						<div class="form-group mb-3">
+							<label for="email" class="fs-5"><b>Correo electrónico</b></label>
+							<input type="email" class="form-control mt-1" id="email" required>
+						</div>
+						<button type="button" id="btnPricingBack" class="btn btn-danger text-uppercase fw-bolder py-2 px-3
+						mt-1 me-3 shadow-sm">
+							Volver
+						</button>
+						<button type="submit" id="btnPricingConfirm" class="btn btn-success text-uppercase fw-bolder py-2 px-3
+						mt-1 ms-3 shadow-sm">
+							Siguiente
+						</button>
+					</form>
+					<form class="mt-3 d-none pricingForm" id="thirdForm">
+						<div class="form-group mb-3">
+							<label for="ubicationConfirm" class="fs-5"><b>Ubicación:</b></label>
+							<input type="text" class="form-control mt-1" id="ubicationConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="metersConfirm" class="fs-5"><b>Metros cuadrados:</b></label>
+							<input type="text" class="form-control mt-1" id="metersConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="roomsConfirm" class="fs-5"><b>Cantidad de habitaciones:</b></label>
+							<input type="text" class="form-control mt-1" id="roomsConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="propertyTypeConfirm" class="fs-5"><b>Tipo de propiedad:</b></label>
+							<input type="text" class="form-control mt-1" id="propertyTypeConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="totalPricingConfirm" class="fs-5"><b>Tasación estimada:</b></label>
+							<input type="text" class="form-control mt-1" id="totalPricingConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="fullNameConfirm" class="fs-5"><b>Nombre completo</b></label>
+							<input type="text" class="form-control mt-1" id="fullNameConfirm" readonly disabled>
+						</div>
+						<div class="form-group mb-3">
+							<label for="emailConfirm" class="fs-5"><b>Correo electrónico</b></label>
+							<input type="text" class="form-control mt-1" id="emailConfirm" readonly disabled>
+						</div>
+						<button type="button" id="btnPricingPDFBack" class="btn btn-danger text-uppercase fw-bolder py-2 px-3
+						mt-1 me-3 shadow-sm">
+							Volver
+						</button>
+						<button type="submit" id="btnPricingPDF" class="btn btn-success text-uppercase fw-bolder py-2 px-3
+						mt-1 ms-3 shadow-sm">
+							Guardar PDF
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</section>
 </body>
 </html>

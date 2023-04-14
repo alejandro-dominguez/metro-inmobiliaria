@@ -21,6 +21,7 @@ font-family: 'Poppins', sans-serif;
 
 html {
     scroll-behavior: smooth;
+    scroll-padding: 86px;
 }
 
 body {
@@ -33,7 +34,7 @@ body {
 
 nav {
     background-color: rgba(1, 26, 170, 0.9);
-    backdrop-filter: blur(0.1rem);
+    backdrop-filter: blur(0.2rem);
 }
 
 .navUl {
@@ -89,7 +90,7 @@ h2 {
 }
 
 #servicesSection {
-    background-color: #1e6fca;
+    background-color: #2d7fdd;
 }
 
 .lightTitle {
