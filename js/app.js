@@ -147,152 +147,6 @@ const getStates = () => {
 }
 
 const handlePricing = () => {
-    const pricingForm = document.querySelector("#firstForm")
-    pricingForm.addEventListener("submit", e => {
-        e.stopPropagation()
-        e.preventDefault()
-        let ubication = $("#ubication").val()
-        let meters = $("#meters").val()
-        let rooms = $("#rooms").val()
-        let propertyType = $("#propertyType").val()
-        let ubicationValue
-        let roomsValue
-        let propertyTypeValue
-
-        switch (rooms) {
-            case "1":
-                roomsValue = "5"
-                break;
-            case "2":
-                roomsValue = "7"
-                break;
-            case "3":
-                roomsValue = "9"
-                break;
-            case "4":
-                roomsValue = "11"
-                break;
-            case "5":
-                roomsValue = "13"
-                break;
-            case "6":
-                roomsValue = "15"
-                break;
-            case "7":
-                roomsValue = "17"
-                break;
-            case "8":
-                roomsValue = "19"
-                break;
-            case "9":
-                roomsValue = "21"
-                break;
-            case "10":
-                roomsValue = "23"
-                break;
-        }
-
-        switch (propertyType) {
-            case "Departamento":
-                propertyTypeValue = "15"      
-                break;
-            case "Casa":
-                propertyTypeValue = "20"
-                break;
-        }
-
-        switch (ubication) {
-            case "Misiones":
-                ubicationValue = "900"
-                break;
-            case "San Luis":
-                ubicationValue = "1200"
-                break;
-            case "San Juan":
-                ubicationValue = "1500"
-                break;
-            case "Entre Ríos":
-                ubicationValue = "1500"
-                break;
-            case "Santa Cruz":
-                ubicationValue = "1200"
-                break;
-            case "Río Negro":
-                ubicationValue = "2000"
-                break;
-            case "Chubut":
-                ubicationValue = "1700"
-                break;
-            case "Córdoba":
-                ubicationValue = "1200"
-                break;
-            case "Mendoza":
-                ubicationValue = "1300"
-                break;
-            case "Chubut":
-                ubicationValue = "1500"
-                break;
-            case "La Rioja":
-                ubicationValue = "1100"
-                break;
-            case "Catamarca":
-                ubicationValue = "1000"
-                break;
-            case "La Pampa":
-                ubicationValue = "1200"
-                break;
-            case "Santiago del Est...":
-                ubicationValue = "1000"
-                break;
-            case "Corrientes":
-                ubicationValue = "1100"
-                break;
-            case "Santa Fe":
-                ubicationValue = "1500"
-                break;
-            case "Tucumán":
-                ubicationValue = "1100"
-                break;
-            case "Neuquén":
-                ubicationValue = "2500"
-                break;
-            case "Salta":
-                ubicationValue = "1200"
-                break;
-            case "Chaco":
-                ubicationValue = "900"
-                break;
-            case "Formosa":
-                ubicationValue = "800"
-                break;
-            case "Jujuy":
-                ubicationValue = "1000"
-                break;
-            case "Ciudad Autónoma ...":
-                ubicationValue = "2800"
-                break;
-            case "Buenos Aires":
-                ubicationValue = "2800"
-                break;
-            case "Tierra del Fuego...":
-                ubicationValue = "2500"
-                break;
-            default:
-                ubicationValue = "2000"
-                break;
-        }
-
-        let baseMetersValue = parseInt(Number(meters) * Number(ubicationValue))
-        let roomsPercentage = baseMetersValue * (roomsValue / 100)
-        let propertyTypePercentage = baseMetersValue * (propertyTypeValue / 100)
-        let totalPricing = baseMetersValue + roomsPercentage + propertyTypePercentage
-
-        $("#totalPricing").val(`USD$ ${totalPricing}`)
-        handlePricingSubmit()
-    })
-}
-
-const handlePricingSubmit = () => {
     const view1 = $("#firstForm")
     const view2 = $("#secondForm")
     const pricingForms = $(".pricingForm")
@@ -306,6 +160,143 @@ const handlePricingSubmit = () => {
                 case "firstForm":
                     view1.addClass("d-none")
                     view2.removeClass("d-none")
+                    let ubication = $("#ubication").val()
+                    let meters = $("#meters").val()
+                    let rooms = $("#rooms").val()
+                    let propertyType = $("#propertyType").val()
+                    let ubicationValue
+                    let roomsValue
+                    let propertyTypeValue
+            
+                    switch (rooms) {
+                        case "1":
+                            roomsValue = "5"
+                            break;
+                        case "2":
+                            roomsValue = "7"
+                            break;
+                        case "3":
+                            roomsValue = "9"
+                            break;
+                        case "4":
+                            roomsValue = "11"
+                            break;
+                        case "5":
+                            roomsValue = "13"
+                            break;
+                        case "6":
+                            roomsValue = "15"
+                            break;
+                        case "7":
+                            roomsValue = "17"
+                            break;
+                        case "8":
+                            roomsValue = "19"
+                            break;
+                        case "9":
+                            roomsValue = "21"
+                            break;
+                        case "10":
+                            roomsValue = "23"
+                            break;
+                    }
+            
+                    switch (propertyType) {
+                        case "Departamento":
+                            propertyTypeValue = "15"      
+                            break;
+                        case "Casa":
+                            propertyTypeValue = "20"
+                            break;
+                    }
+            
+                    switch (ubication) {
+                        case "Misiones":
+                            ubicationValue = "900"
+                            break;
+                        case "San Luis":
+                            ubicationValue = "1200"
+                            break;
+                        case "San Juan":
+                            ubicationValue = "1500"
+                            break;
+                        case "Entre Ríos":
+                            ubicationValue = "1500"
+                            break;
+                        case "Santa Cruz":
+                            ubicationValue = "1200"
+                            break;
+                        case "Río Negro":
+                            ubicationValue = "2000"
+                            break;
+                        case "Chubut":
+                            ubicationValue = "1700"
+                            break;
+                        case "Córdoba":
+                            ubicationValue = "1200"
+                            break;
+                        case "Mendoza":
+                            ubicationValue = "1300"
+                            break;
+                        case "Chubut":
+                            ubicationValue = "1500"
+                            break;
+                        case "La Rioja":
+                            ubicationValue = "1100"
+                            break;
+                        case "Catamarca":
+                            ubicationValue = "1000"
+                            break;
+                        case "La Pampa":
+                            ubicationValue = "1200"
+                            break;
+                        case "Santiago del Est...":
+                            ubicationValue = "1000"
+                            break;
+                        case "Corrientes":
+                            ubicationValue = "1100"
+                            break;
+                        case "Santa Fe":
+                            ubicationValue = "1500"
+                            break;
+                        case "Tucumán":
+                            ubicationValue = "1100"
+                            break;
+                        case "Neuquén":
+                            ubicationValue = "2500"
+                            break;
+                        case "Salta":
+                            ubicationValue = "1200"
+                            break;
+                        case "Chaco":
+                            ubicationValue = "900"
+                            break;
+                        case "Formosa":
+                            ubicationValue = "800"
+                            break;
+                        case "Jujuy":
+                            ubicationValue = "1000"
+                            break;
+                        case "Ciudad Autónoma ...":
+                            ubicationValue = "2800"
+                            break;
+                        case "Buenos Aires":
+                            ubicationValue = "2800"
+                            break;
+                        case "Tierra del Fuego...":
+                            ubicationValue = "2500"
+                            break;
+                        default:
+                            ubicationValue = "2000"
+                            break;
+                    }
+            
+                    let baseMetersValue = parseInt(Number(meters) * Number(ubicationValue))
+                    let roomsPercentage = baseMetersValue * (roomsValue / 100)
+                    let propertyTypePercentage = baseMetersValue * (propertyTypeValue / 100)
+                    let totalPricing = baseMetersValue + roomsPercentage + propertyTypePercentage
+            
+                    $("#totalPricing").val(`USD$ ${totalPricing}`)
                     break;
                 case "secondForm":
                     showConfirmData()
