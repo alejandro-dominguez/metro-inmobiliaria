@@ -142,20 +142,15 @@ const getStates = () => {
         })
         $("#spinnerContainer").addClass("d-none")
         $("body").css("overflow-y", "auto")
+        handlePricing()
     })
-    handlePricing()
 }
 
 const handlePricing = () => {
-    const pricingForm = $("#firstForm")
-
-    pricingForm.submit(function(e) {
+    const pricingForm = document.querySelector("#firstForm")
+    pricingForm.addEventListener("submit", e => {
+        e.stopPropagation()
         e.preventDefault()
-        if ($("#meters").val() == 1 || $("#rooms").val() == 1 ) {
-            
-        } else {
-            
-        }
         let ubication = $("#ubication").val()
         let meters = $("#meters").val()
         let rooms = $("#rooms").val()
@@ -304,23 +299,17 @@ const handlePricingSubmit = () => {
 
     Array.from(pricingForms).forEach(form => {
         form.addEventListener("submit", e => {
-            if (form.checkValidity() == false) {
-                e.stopPropagation()
-                e.preventDefault()
-                form.classList.add("was-validated")
-            } else {
-                form.classList.add("was-validated")
-                e.stopPropagation()
-                e.preventDefault()
-                switch (form.id) {
-                    case "firstForm":
-                        view1.addClass("d-none")
-                        view2.removeClass("d-none")
-                        break;
-                    case "secondForm":
-                        showConfirmData()
-                        break;
-                }
+            form.classList.add("was-validated")
+            e.stopPropagation()
+            e.preventDefault()
+            switch (form.id) {
+                case "firstForm":
+                    view1.addClass("d-none")
+                    view2.removeClass("d-none")
+                    break;
+                case "secondForm":
+                    showConfirmData()
+                    break;
             }
         }, false)
     })
