@@ -298,27 +298,27 @@ const handlePricing = () => {
 }
 
 const handlePricingSubmit = () => {
-    let view1 = $('#firstForm')
-    let view2 = $('#secondForm')
-    const pricingForms = $('.pricingForm')
+    const view1 = $("#firstForm")
+    const view2 = $("#secondForm")
+    const pricingForms = $(".pricingForm")
 
     Array.from(pricingForms).forEach(form => {
-        form.addEventListener('submit', e => {
+        form.addEventListener("submit", e => {
             if (form.checkValidity() == false) {
                 e.stopPropagation()
                 e.preventDefault()
-                form.classList.add('was-validated')
+                form.classList.add("was-validated")
             } else {
-                form.classList.add('was-validated')
+                form.classList.add("was-validated")
                 e.stopPropagation()
                 e.preventDefault()
                 switch (form.id) {
                     case "firstForm":
-                        view1.addClass('d-none')
-                        view2.removeClass('d-none')
+                        view1.addClass("d-none")
+                        view2.removeClass("d-none")
                         break;
                     case "secondForm":
-                        showConfirmData();
+                        showConfirmData()
                         break;
                 }
             }
@@ -341,63 +341,62 @@ const showConfirmData = () => {
     pricingForm.ubication = $("#ubication").val()
     pricingForm.meters = $("#meters").val()
     pricingForm.rooms = $("#rooms").val()
-    pricingForm.propertyType = $('#propertyType').val()
-    pricingForm.totalPricing = $('#totalPricing').val()
-    pricingForm.fullName = $('#fullName').val()
+    pricingForm.propertyType = $("#propertyType").val()
+    pricingForm.totalPricing = $("#totalPricing").val()
+    pricingForm.fullName = $("#fullName").val()
     pricingForm.email = $("#email").val()
-    console.log(pricingForm.ubication, pricingForm.meters, pricingForm.rooms, pricingForm.propertyType, pricingForm.totalPricing,
-    pricingForm.fullName, pricingForm.email)
-    $('#ubicationConfirm').val(pricingForm.ubication)
-    $('#metersConfirm').val(pricingForm.meters)
-    $('#roomsConfirm').val(pricingForm.rooms)
-    $('#propertyTypeConfirm').val(pricingForm.propertyType)
-    $('#totalPricingConfirm').val(pricingForm.totalPricing)
-    $('#fullNameConfirm').val(pricingForm.fullName);
-    $('#emailConfirm').val(pricingForm.email);
-    $('#secondForm').addClass('d-none'); //ocultamos la vista 2
-    $('#thirdForm').removeClass('d-none'); //mostramos la vista de confirmación
+    $("#ubicationConfirm").val(pricingForm.ubication)
+    $("#metersConfirm").val(pricingForm.meters)
+    $("#roomsConfirm").val(pricingForm.rooms)
+    $("#propertyTypeConfirm").val(pricingForm.propertyType)
+    $("#totalPricingConfirm").val(pricingForm.totalPricing)
+    $("#fullNameConfirm").val(pricingForm.fullName)
+    $("#emailConfirm").val(pricingForm.email)
+    $("#secondForm").addClass("d-none")
+    $("#thirdForm").removeClass("d-none")
+
+    handleBtns()
 }
 
-/*
-const handlePricingSubmit = () => {   
-}
-    (() => {
-        const pricingForm = $("#firstForm")
-        const userForm = $("#secondForm")
-        const confirmForm = $("#thirdForm")
+const handleBtns = () => {
+    const btnBack1 = document.querySelector("#btnPricingBack")
+    const btnBack2 = document.querySelector("#btnPricingPDFBack")
+    const btnSubmitPDF = document.querySelector("#btnPricingPDF")
 
-        const forms = $(".needs-validation")
-        Array.from(forms).forEach(form => {
-            form.addEventListener("submit", e => {
-                if (form.checkValidity() == false) {
-                    e.stopPropagation()
-                    e.preventDefault()
-                } else {
-                    e.stopPropagation()
-                    e.preventDefault()
-                    
-                    switch(forms.id) {
-                        case "firstForm":
-                        pricingForm.addClass("d-none")
-                        userForm.removeClass("d-none")  
-                        break;
-                        case "secondForm":
-                        fillThirdForm()
-                        break;
-                        case "ThirdForm":
-                        sendEmail()
-                        break;
-                    }
-                }
-            })
+    btnBack1.addEventListener("click", () => {
+        $("#firstForm").removeClass("d-none")
+        $("#secondForm").addClass("d-none")
+    })
+    btnBack2.addEventListener("click", () => {
+        $("#firstForm").removeClass("d-none")
+        $("#thirdForm").addClass("d-none")
+    })
+
+    btnSubmitPDF.addEventListener("click", () => {
+        const PDFElement = document.querySelector("#thirdForm")
+        html2pdf()
+        .set({
+            margin: 1,
+            filename: "tasacion.pdf",
+            image: {
+                type: "png",
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 3,
+                letterRendering: true,
+            },
+            jsPDF: {
+                unit: "in",
+                format: "a3",
+                orientation: "portrait"
+            }
         })
+        .from(PDFElement)
+        .save()
+        .catch(error => console.log(error))
     })
 }
- */
-
-
-
-
 
 /* class ContactForm {
     fullName;
